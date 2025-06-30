@@ -1,0 +1,57 @@
+.settings {
+  min-width: 600px;
+  margin: 40px auto;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+.settings * {
+  color: #000 !important;
+}
+.settings h1 {
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: 2rem;
+  color: #2d3748;
+  letter-spacing: 1px;
+}
+.settings div {
+  margin-bottom: 20px;
+}
+.settings label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #444;
+  font-size: 1rem;
+  gap: 8px;
+}
+.settings input[type=text], .settings select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  background: #f8fafc;
+}
+.settings input[type=text]:focus, .settings select:focus {
+  border-color: #3182ce;
+  outline: none;
+  background: #fff;
+}
+.settings input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3182ce;
+  margin-right: 8px;
+}
+.settings strong {
+  color: #3182ce;
+  font-size: 1.1rem;
+}
+.settings p {
+  margin: 4px 0;
+  color: #2d3748;
+  font-size: 1rem;
+}/*# sourceMappingURL=styles.css.map */

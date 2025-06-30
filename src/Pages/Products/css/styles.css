@@ -1,0 +1,264 @@
+.products {
+  --filter-width: min(80%, 900px);
+  --filter-min-height: 320px;
+  --card-min-width: 300px;
+  --scroll-button-size: 56px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+.products .btns {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.products .filter {
+  width: var(--filter-width);
+  min-height: var(--filter-min-height);
+  margin: 2.5rem 0;
+  padding: 2rem 2.5rem;
+  display: flex;
+  gap: 2rem;
+  background: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+  transition: box-shadow var(--transition-time) ease, transform var(--transition-time) ease;
+}
+.products .filter:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+.products .filter .tags {
+  flex: 0 0 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.products .filter .tags select,
+.products .filter .tags button {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all var(--transition-time) ease;
+}
+.products .filter .tags select {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+.products .filter .tags select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.1);
+}
+.products .filter .tags button {
+  background: var(--accent-primary);
+  color: white !important;
+  border: none;
+  font-weight: 500;
+}
+.products .filter .tags button:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.products .filter .tags .price-range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.products .filter .tags .price-range label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.products .filter .tags .price-range input[type=range] {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  border-radius: 3px;
+}
+.products .filter .tags .rating-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.products .filter .tags .rating-filter label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.products .filter .tags .rating-filter .stars {
+  display: flex;
+  gap: 0.25rem;
+}
+.products .filter .tags .rating-filter .star {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.products .filter .tags .rating-filter .star.active {
+  color: #ffc107;
+  transform: scale(1.15);
+}
+.products .filter .tags .rating-filter .star:hover {
+  transform: scale(1.2);
+}
+.products .filter .search {
+  height: 50px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(var(--text-primary-rgb), 0.05);
+  border-radius: 12px;
+  padding: 0 1.5rem;
+  transition: all var(--transition-time) ease;
+  border: 1px solid transparent;
+  border: #fff 2px solid !important;
+}
+.products .filter .search input {
+  outline: none;
+  text-decoration: none;
+  border: none !important;
+  border-radius: 10px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 0;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+@media (max-width: 900px) {
+  .products .filter .search {
+    flex-direction: column;
+    width: 90%;
+    padding: 1.5rem;
+  }
+  .products .filter .search .tags {
+    flex: 1;
+    width: 100%;
+  }
+  .products .filter .search .search {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}
+.products .filter .cards-container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1.75rem;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .products .filter .cards-container {
+    --card-min-width: 250px;
+    gap: 1.25rem;
+  }
+}
+.products .filter .cards-container .card {
+  animation: fadeIn 0.4s cubic-bezier(0.2, 0, 0.1, 1) forwards;
+  opacity: 0;
+}
+.products .filter .no-results {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+.products .filter .loading-more {
+  width: 100dvw;
+  grid-column: 1/-1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.products .up-button {
+  --button-size: var(--scroll-button-size);
+  --progress-ring-size: calc(var(--button-size) + 8px);
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: var(--button-size);
+  height: var(--button-size);
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.1, 1);
+  z-index: 1000;
+  overflow: hidden;
+}
+.products .up-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+}
+.products .up-button.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.products .up-button:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+.products .up-button .progress-ring {
+  position: absolute;
+  width: var(--progress-ring-size);
+  height: var(--progress-ring-size);
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent-primary);
+  transform: rotate(-90deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.products .up-button:hover .progress-ring {
+  opacity: 0.3;
+  animation: progress-rotate 1.5s linear infinite;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes progress-rotate {
+  from {
+    transform: rotate(-90deg);
+  }
+  to {
+    transform: rotate(270deg);
+  }
+}
+.products .loading-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--loading-bg);
+}/*# sourceMappingURL=styles.css.map */

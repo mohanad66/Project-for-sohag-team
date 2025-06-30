@@ -1,0 +1,104 @@
+/* src/components/CustomCursor.css */
+
+:root {
+  /* Cursor Sizes */
+  --cursor-dot-size: 8px;
+  --cursor-outline-size: 24px;
+  --cursor-hover-size: 40px;
+  --cursor-click-size: 20px;
+  
+  /* Light Mode Colors */
+  --cursor-color: #2b2b2d !important;
+  --cursor-outline-color: #000;
+  --cursor-hover-color: rgba(0, 0, 0, 0.1);
+  --cursor-click-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] {
+  /* Dark Mode Colors */
+  --cursor-color: #fff !important;
+  --cursor-outline-color: #fff;
+  --cursor-hover-color: rgba(255, 255, 255, 0.1);
+  --cursor-click-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Base Styles */
+* {
+  cursor: none;
+}
+
+.cursor-dot,
+.cursor-outline {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Dot Cursor */
+.cursor-dot {
+  width: var(--cursor-dot-size);
+  height: var(--cursor-dot-size);
+  background-color: var(--cursor-color);
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  transition:
+    opacity 0.15s ease,
+    transform 0.1s ease-out;
+}
+
+/* Outline Cursor */
+.cursor-outline {
+  width: var(--cursor-outline-size);
+  height: var(--cursor-outline-size);
+  border: 2px solid var(--cursor-outline-color);
+  border-radius: 50%;
+  transition:
+    transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+    width 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+    height 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+    border 0.15s ease,
+    background-color 0.2s ease;
+}
+
+/* Interactive States */
+.cursor-hover .cursor-dot {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(1.2);
+}
+
+.cursor-hover{
+  width: var(--cursor-hover-size) !important;
+  height: var(--cursor-hover-size) !important;
+  background-color: var(--cursor-hover-color) !important;
+}
+
+/* Accessibility Features */
+@media (pointer: coarse) {
+  * {
+    cursor: auto;
+  }
+  
+  .cursor-dot,
+  .cursor-outline {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-outline {
+    transition: none !important;
+  }
+}
+
+/* Performance Optimizations */
+@supports (-webkit-touch-callout: none) {
+  .cursor-dot,
+  .cursor-outline {
+    -webkit-backface-visibility: hidden;
+  }
+}
