@@ -1,7 +1,7 @@
 .carousel {
     width: 90%;
     max-width: 1200px;
-    margin:3rem auto;
+    margin: 3rem auto;
     position: relative;
     overflow: hidden;
     // Remove all design/background styles, keep only layout
@@ -205,7 +205,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(120px + 2vw), 1fr));
     width: 80dvw;
-    margin-left: 10dvw !important;
     gap: 25px;
 
     .category {
@@ -247,9 +246,10 @@
 .cards-container {
     display: grid;
     width: 90%;
+    justify-content: center;
+    align-items: center;
     gap: 30px;
-    margin-left: 5%;
-    grid-template-columns: repeat(auto-fill, minmax(calc(300px + 2vw), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(calc(270px + 2vw), 1fr));
 
     h2 {
         color: #fff !important;
@@ -259,11 +259,21 @@
 }
 
 .home {
+    position: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden !important;
+    width: 100%;
+    //
     transition-duration: 500ms !important;
 
 }
 
+
 @media (max-width: 700px) {
+
     .title {
         font-size: 20px;
     }
@@ -271,13 +281,13 @@
     .carousel {
         min-width: 90% !important;
         padding: 0 !important;
-        margin: 0 5% !important;
         border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
     }
+
     //
 
     .carousel-container {

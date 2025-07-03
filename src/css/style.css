@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 :root {
   /* ==== DARK THEME (Default) ==== */
   --text-primary: #f0f3f5;
@@ -38,27 +37,57 @@
   --toggle-bg: var(--accent-primary);
   --toggle-icon: "☀️";
   --loading-bg: #f8fafc;
-  --color:#000;
+  --color: #000;
+}
+
+body {
+  position: relative;
+  width: 100%;
 }
 
 /* ==== GLOBAL STYLES (Optimized) ==== */
 body {
-  min-height: 150dvh;
-  min-width: 100dvw;
+  min-height: 100dvh;
+  min-width: 100dvw !important;
   margin: 0 !important;
   padding: 0 !important;
-  color: var(--text-primary); /* Fixed: Now uses --text-primary */
+  color: var(--text-primary);
+  /* Fixed: Now uses --text-primary */
   background-image: var(--bg-gradient);
   background-attachment: fixed;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Better font stack */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Better font stack */
   transition: background-image 500ms ease, background-color 500ms ease;
   overscroll-behavior: contain;
   -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden !important;
+}
+
+/* ==== PREVENT HORIZONTAL SCROLLING ON MOBILE ==== */
+html,
+body {
+  max-width: 100%;
   overflow-x: hidden;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain; /* Prevent overscroll glow/bounce */
+  /* Ensures only vertical touch scrolling is allowed */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+body {
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on iOS */
+}
+
+/* Optional: Prevent horizontal scrolling on all elements */
+body * {
+  max-width: 100%;
 }
 
 body * {
-  color: inherit; /* Inherits from body (--text-primary) */
+  color: inherit;
+  /* Inherits from body (--text-primary) */
   text-shadow: var(--text-shadow);
   transition: color 300ms ease, background-color 300ms ease;
   outline: none;
@@ -112,7 +141,8 @@ body * {
   height: 3rem;
   border-radius: 50%;
   background: var(--toggle-bg);
-  color: white !important; /* Override for visibility */
+  color: white !important;
+  /* Override for visibility */
   border: none;
   cursor: pointer;
   display: flex;
@@ -146,14 +176,17 @@ body * {
   -ms-transition: all 300ms ease;
   -o-transition: all 300ms ease;
 }
-.card *, .card h2, .card p {
+.card *,
+.card h2,
+.card p {
   color: var(--color) !important;
 }
 .card input {
   color: #fff !important;
 }
 
-button, .btn {
+button,
+.btn {
   background: var(--accent-primary);
   color: white !important;
   /*Ensurestextstaysvisible*/
@@ -170,7 +203,8 @@ button, .btn {
   -o-transition: all 300ms ease;
 }
 
-button:hover, .btn:hover {
+button:hover,
+.btn:hover {
   background: var(--accent-secondary);
   transform: translateY(-2px);
 }
@@ -180,6 +214,7 @@ button:hover, .btn:hover {
   body {
     font-size: 1rem;
     padding: 1rem;
+    overflow-x: hidden;
   }
   .theme-toggle {
     width: 2.5rem;

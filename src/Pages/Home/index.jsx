@@ -47,15 +47,15 @@ export default function Home() {
         fetchPopCards();
     }, [])
     // Responsive: show 5 categories on small screens
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 900);
+        const handleResize = () => setIsMobile(window.innerWidth <= 500);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const displayedCategories = isMobile ? categories.slice(0, 9) : categories;
+    const displayedCategories = isMobile ? categories.slice(0, 10) : categories;
     const handleCategoryClick = (categorySlug) => {
         navigate(`/products?category=${categorySlug}`);
     };
@@ -68,7 +68,7 @@ export default function Home() {
         </div>;
     }
     return (
-        <HomeCLSWrapper>
+        <>
             <div className="home">
                 <h1 className="title">Some Of Our Products</h1>
                 <Carousel />
@@ -92,7 +92,7 @@ export default function Home() {
                     ))}
                 </div>
             </div>
-        </HomeCLSWrapper>
+        </>
     );
 }
 

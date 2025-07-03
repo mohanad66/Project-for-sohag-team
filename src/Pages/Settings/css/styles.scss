@@ -1,24 +1,57 @@
 .settings {
-    *{
-        color: #000 !important;
-    }
+    --scrollbar-width: 8px;
+    --max-height: 80vh;
+    --hover-transition: 0.3s ease;
+    
+    width: min(90%, 800px) !important;
     min-width: 600px;
     margin: 40px auto;
     padding: 32px 24px;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    max-height: var(--max-height);
+    overflow-y: hidden;
+    transition: overflow-y var(--hover-transition);
+    
+    * {
+        color: #000 !important;
+        box-sizing: border-box;
+    }
+
+    &:hover {
+        overflow-y: auto;
+        padding-right: calc(24px - var(--scrollbar-width));
+        
+        /* Custom scrollbar */
+        &::-webkit-scrollbar {
+            width: var(--scrollbar-width);
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #3182ce;
+            border-radius: 4px;
+        }
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+    }
 
     h1 {
         text-align: center;
         margin-bottom: 28px;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         color: #2d3748;
         letter-spacing: 1px;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        padding-bottom: 16px;
+        z-index: 1;
     }
 
-    div {
+    > div {
         margin-bottom: 20px;
+        padding-right: 8px; /* Prevent content clipping */
     }
 
     label {
@@ -28,20 +61,24 @@
         color: #444;
         font-size: 1rem;
         gap: 8px;
+        margin-bottom: 12px;
     }
 
-    input[type="text"], select {
-        padding: 8px 12px;
+    input[type="text"],
+    select {
+        padding: 10px 12px;
         border: 1px solid #cbd5e1;
         border-radius: 6px;
         font-size: 1rem;
-        transition: border 0.2s;
+        transition: all 0.2s;
         background: #f8fafc;
+        width: 100%;
 
         &:focus {
             border-color: #3182ce;
             outline: none;
             background: #fff;
+            box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
         }
     }
 
@@ -50,16 +87,59 @@
         height: 18px;
         accent-color: #3182ce;
         margin-right: 8px;
+        cursor: pointer;
     }
 
     strong {
         color: #3182ce;
         font-size: 1.1rem;
+        display: inline-block;
+        margin: 8px 0;
     }
 
     p {
-        margin: 4px 0;
+        margin: 8px 0;
         color: #2d3748;
         font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    /* Firefox scrollbar */
+    @supports (scrollbar-color: auto) {
+        &:hover {
+            scrollbar-color: #3182ce #f1f1f1;
+            scrollbar-width: thin;
+        }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        min-width: unset;
+        width: 95% !important;
+        max-height: none;
+        overflow-y: visible;
+        padding: 24px 16px;
+        
+        &:hover {
+            overflow-y: visible;
+            padding-right: 16px;
+        }
+        
+        h1 {
+            position: static;
+        }
+    }
+
+    /* Form group styling */
+    .form-group {
+        background: #f8fafc;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        border: 1px solid #e2e8f0;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
