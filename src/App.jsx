@@ -1,10 +1,10 @@
 import { Routes, Route, useLocation } from "react-router"
-import Home from "./Pages/Home"
-import Products from "./Pages/Products"
-import Settings from "./Pages/Settings"
-import Cart from "./Pages/Cart"
+import Home from "./Pages/Home/index.jsx"
+import Products from "./Pages/Products/index.jsx"
+import Settings from "./Pages/Settings/index.jsx"
+import Cart from "./Pages/Cart/index.jsx"
 import "./css/style.css"
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar/index.jsx"
 import CustomCursor from './components/cursor/index.jsx';
 import { ClipLoader } from "react-spinners";
 import { useEffect } from "react"

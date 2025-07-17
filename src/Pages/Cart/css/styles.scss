@@ -58,7 +58,6 @@
 
         &:hover {
             overflow-y: auto;
-            padding-right: calc(2rem - var(--scrollbar-width));
 
             /* Custom scrollbar */
             &::-webkit-scrollbar {
@@ -124,7 +123,7 @@
                 transition: overflow-y 0.3s ease;
 
                 &:hover {
-                    overflow-y: auto;
+                    // overflow-y: auto;
 
                     &::-webkit-scrollbar {
                         width: var(--scrollbar-width);

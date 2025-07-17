@@ -150,6 +150,7 @@
 .dot {
   width: 14px;
   height: 14px;
+  margin: 5px 0;
   border-radius: 50%;
   border: none;
   background: #bfc9db;
@@ -303,7 +304,7 @@
     gap: 0.4rem;
   }
   .dot {
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
   }
 }/*# sourceMappingURL=styles.css.map */

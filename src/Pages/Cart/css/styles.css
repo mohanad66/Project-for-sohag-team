@@ -55,7 +55,6 @@
 }
 .cart .cart-summary:hover {
   overflow-y: auto;
-  padding-right: calc(2rem - var(--scrollbar-width));
   /* Custom scrollbar */
 }
 .cart .cart-summary:hover::-webkit-scrollbar {
@@ -108,9 +107,6 @@
   /* Adjust based on your needs */
   overflow-y: hidden;
   transition: overflow-y 0.3s ease;
-}
-.cart .cart-summary table tbody:hover {
-  overflow-y: auto;
 }
 .cart .cart-summary table tbody:hover::-webkit-scrollbar {
   width: var(--scrollbar-width);
