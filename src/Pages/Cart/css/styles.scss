@@ -3,11 +3,13 @@
 /* =================== */
 
 .cart {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
     --card-min-width: minmax(min(300px, 100%), 1fr);
     --card-gap: 2%;
     --summary-width: min(100%, 600px);
     --transition-duration: 500ms;
-
     width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
@@ -91,7 +93,7 @@
                 padding: 0.75rem;
                 text-align: left;
                 word-wrap: break-word;
-                max-width: 25vw;
+                width: 100%;
             }
 
             th {
@@ -103,7 +105,8 @@
 
             tr {
                 border-bottom: 1px solid #eaeaea;
-
+                display: grid;
+                grid-template-columns: 3fr 3fr 3fr 3fr;
                 &:last-child {
                     border-bottom: none;
                 }
@@ -111,17 +114,17 @@
 
             thead {
                 display: table;
-                width: 100%;
                 table-layout: fixed;
+                width: 100%;
+                
             }
 
             tbody {
                 display: block;
                 max-height: 300px;
                 /* Adjust based on your needs */
-                overflow-y: hidden;
+                overflow-y: auto;
                 transition: overflow-y 0.3s ease;
-
                 &:hover {
                     // overflow-y: auto;
 
@@ -139,7 +142,7 @@
                     }
                 }
 
-                
+
             }
         }
     }
@@ -219,18 +222,20 @@
                 th,
                 td {
                     min-width: 120px;
-                    max-width: none;
                 }
 
                 tbody {
                     display: block;
                     max-height: 300px;
-                    /* Adjust based on your needs */
-                    overflow-y: hidden;
+                    /*Adjustbasedonyourneeds*/
+                    overflow-y: auto;
                     transition: overflow-y 0.3s ease;
+                    -webkit-transition: overflow-y 0.3s ease;
+                    -moz-transition: overflow-y 0.3s ease;
+                    -ms-transition: overflow-y 0.3s ease;
+                    -o-transition: overflow-y 0.3s ease;
 
                     &:hover {
-                        overflow-y: auto;
 
                         &::-webkit-scrollbar {
                             width: var(--scrollbar-width);

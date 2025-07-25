@@ -2,6 +2,9 @@
 /* CART COMPONENT STYLES */
 /* =================== */
 .cart {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
   --card-min-width: minmax(min(300px, 100%), 1fr);
   --card-gap: 2%;
   --summary-width: min(100%, 600px);
@@ -82,7 +85,7 @@
   padding: 0.75rem;
   text-align: left;
   word-wrap: break-word;
-  max-width: 25vw;
+  width: 100%;
 }
 .cart .cart-summary table th {
   background: #f5f5f5;
@@ -92,20 +95,22 @@
 }
 .cart .cart-summary table tr {
   border-bottom: 1px solid #eaeaea;
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr;
 }
 .cart .cart-summary table tr:last-child {
   border-bottom: none;
 }
 .cart .cart-summary table thead {
   display: table;
-  width: 100%;
   table-layout: fixed;
+  width: 100%;
 }
 .cart .cart-summary table tbody {
   display: block;
   max-height: 300px;
   /* Adjust based on your needs */
-  overflow-y: hidden;
+  overflow-y: auto;
   transition: overflow-y 0.3s ease;
 }
 .cart .cart-summary table tbody:hover::-webkit-scrollbar {
@@ -183,17 +188,17 @@
   .cart .cart-summary table th,
   .cart .cart-summary table td {
     min-width: 120px;
-    max-width: none;
   }
   .cart .cart-summary table tbody {
     display: block;
     max-height: 300px;
-    /* Adjust based on your needs */
-    overflow-y: hidden;
-    transition: overflow-y 0.3s ease;
-  }
-  .cart .cart-summary table tbody:hover {
+    /*Adjustbasedonyourneeds*/
     overflow-y: auto;
+    transition: overflow-y 0.3s ease;
+    -webkit-transition: overflow-y 0.3s ease;
+    -moz-transition: overflow-y 0.3s ease;
+    -ms-transition: overflow-y 0.3s ease;
+    -o-transition: overflow-y 0.3s ease;
   }
   .cart .cart-summary table tbody:hover::-webkit-scrollbar {
     width: var(--scrollbar-width);

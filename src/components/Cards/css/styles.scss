@@ -1,7 +1,35 @@
 // ===================
 // Card Styles
 // ===================
+
+:root[data-theme="light"] {
+    --color-cards: #000;
+}
+
+:root {
+    --color-cards: #000;
+}
+
+
+input{
+    height: 25px;
+}
 .card {
+    input {
+        color: #fff !important;
+    }
+
+
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    backdrop-filter: blur(8px);
+    transition: all 300ms ease;
+    -webkit-transition: all 300ms ease;
+    -moz-transition: all 300ms ease;
+    -ms-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -79,7 +107,7 @@
 // ===================
 .volume-control {
     display: grid;
-    grid-template-columns: 2fr 6fr;
+    grid-template-columns: 1fr 11fr;
     gap: 1%;
 
     input {
@@ -249,7 +277,7 @@
 
     h2,
     p {
-        color: #000 !important;
+        color: var(--color-cards) !important;
     }
 
     input {
