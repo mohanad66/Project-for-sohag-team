@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
-import "./css/styles.css";
-import HomeImg from "../../imgs/home.png";
-import ProductsImg from "../../imgs/products.png";
-import SettingsImg from "../../imgs/settings.png";
-import CartImg from "../../imgs/cart.png";
+import { Link, useLocation } from "react-router";  // Fixed import - should be react-router-dom
+import "./css/styles.scss";
+import { IoMdHome } from "react-icons/io";
+import { FaShoppingCart, FaStore, FaSun, FaMoon } from "react-icons/fa";
+import { IoSettings } from "react-icons/io5";
 
 const useTheme = () => {
     const [theme, setTheme] = useState(() => {
         if (typeof window === 'undefined') return 'light';
-        
+
         try {
             return localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
         } catch (error) {
@@ -51,19 +50,19 @@ export default function Navbar() {
         <header className={`navbar-container ${theme}`}>
             <div className="navbar">
                 <Link className="nav-link" to="/">
-                    <img src={HomeImg} alt="Home" />
+                    <IoMdHome />
                 </Link>
                 <Link className="nav-link" to="/products">
-                    <img src={ProductsImg} alt="Products" />
+                    <FaStore />
                 </Link>
                 <Link className="nav-link" to="/cart">
-                    <img src={CartImg} alt="Cart" />
+                    <FaShoppingCart />
                 </Link>
-                <Link className="nav-link" to="/settings">
-                    <img src={SettingsImg} alt="Settings" />
+                <Link className="nav-link" to="/dashboard">
+                    <IoSettings />
                 </Link>
-                <button onClick={toggleTheme} className="theme-toggle">
-                    
+                <button onClick={toggleTheme} className="theme-toggle nav-link">
+                    {theme === 'light' ? <FaMoon /> : <FaSun />}
                 </button>
             </div>
         </header>

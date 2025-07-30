@@ -5,6 +5,13 @@
         display: flex;
         justify-content: center;
         align-self: center;
+        .btn{
+            background: #078fff !important;
+            transition-duration: 250ms !important;
+            &:hover{
+                background: darken(#078fff , 15%) !important;
+            }
+        }
 
     }
 

@@ -4,8 +4,11 @@ import { getCategories, getPopularProducts } from "../../services/api.js";
 import Card from "../../components/Cards/index.jsx";
 import { useNavigate } from "react-router";
 import { ClipLoader } from "react-spinners";
-import "./css/styles.css"
-// Add: Home page CLS wrapper
+import "./css/styles.scss"
+import { motion } from "framer-motion";
+import useFancybox from "../../components/Fancybox/index.jsx";
+
+
 function HomeCLSWrapper({ children }) {
     return <div className="home-cls-wrapper">{children}</div>;
 }
@@ -14,15 +17,15 @@ export default function Home() {
     const navigate = useNavigate(); // Add this line
     const [categories, setCategories] = useState([])
     const [popCards, setPopCards] = useState([])
-     const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-      if (document.readyState === "complete") {
-        setLoading(false)
-      }
-    }, 500)
-  }, [])
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            if (document.readyState === "complete") {
+                setLoading(false)
+            }
+        }, 500)
+    }, [])
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -85,12 +88,25 @@ export default function Home() {
                         </div>
                     ))}
                 </div>
-                <div className="cards-container">
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: { opacity: 0 },
+                        visible: {
+                            opacity: 1,
+                            transition: {
+                                staggerChildren: 0.1, // Delay between each card animation
+                            },
+                        },
+                    }}
+                    className="cards-container"
+                >
                     <h1 className="title">Popular Products</h1>
                     {popCards.map((popCard, index) => (
                         <Card card={popCard} key={index} />
                     ))}
-                </div>
+                </motion.div>
             </div>
         </>
     );
@@ -102,6 +118,36 @@ function Carousel() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [fancyboxRef] = useFancybox({
+        // Custom options
+        infinite: false,  // Disable infinite navigation
+        thumbs: {
+            autoStart: true,  // Display thumbnails automatically
+            hideOnClose: true // Hide thumbnails when closing
+        },
+        toolbar: true,  // Show toolbar
+        buttons: [
+            "zoom",
+            "slideShow",
+            "fullScreen",
+            "download",
+            "thumbs",
+            "close"
+        ],
+        animationEffect: "zoom",  // Zoom animation
+        transitionEffect: "fade",  // Fade transition between slides
+        loop: false,  // Disable looping
+        keyboard: {
+            Escape: "close",  // Close on ESC
+            ArrowLeft: "prev",  // Navigate with arrow keys
+            ArrowRight: "next"
+        },
+        on: {
+            init: () => console.log("Fancybox initialized"),
+            reveal: (instance, slide) => console.log("Slide revealed", slide),
+            close: () => console.log("Fancybox closed")
+        }
+    });
 
     useEffect(() => {
         const fetchSlides = async () => {
@@ -163,7 +209,7 @@ function Carousel() {
     }
 
     return (
-        <div className="carousel mobile-carousel">
+        <div ref={fancyboxRef} className="carousel mobile-carousel">
             <div className="carousel-container mobile-carousel-container">
                 <button
                     className="carousel-button prev mobile-carousel-button"
@@ -175,12 +221,14 @@ function Carousel() {
 
                 <div className="slide mobile-slide">
                     <div className="slide-image-container mobile-slide-image-container">
+                        <a data-fancybox="gallery" href={slides[currentIndex].img}>
                         <img
                             src={slides[currentIndex].img}
                             alt={slides[currentIndex].title}
                             className="slide-image mobile-slide-image"
                             loading="lazy"
                         />
+                        </a>
                     </div>
                     <div className="slide-content mobile-slide-content">
                         <h2 className="slide-title mobile-slide-title">{slides[currentIndex].title}</h2>

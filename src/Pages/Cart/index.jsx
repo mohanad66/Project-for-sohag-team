@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Cards";
-import "./css/styles.css";
+import "./css/styles.scss";
 import { ClipLoader } from "react-spinners";
 
 export default function Cart() {

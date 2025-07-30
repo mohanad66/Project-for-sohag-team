@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getCategories, getProducts } from "../../services/api";
 import Card from "../../components/Cards";
-import "./css/styles.css";
+import "./css/styles.scss";
 import { useSearchParams } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { FiArrowUp } from "react-icons/fi";
+import { motion } from "framer-motion";
+
 
 const DEFAULT_FILTERS = {
     category: "all",
@@ -137,8 +139,10 @@ export default function Products() {
     // Handle search
     const handleSearch = useCallback((search) => {
         if (search) {
+            const searchTerm = search.toLowerCase();
             const filtered = products.filter(product =>
-                product.title?.toLowerCase().includes(search.toLowerCase())
+                product.title?.toLowerCase().includes(searchTerm) ||
+                product.description?.toLowerCase().includes(searchTerm)
             );
             setFilteredProducts(filtered);
         } else {
@@ -252,7 +256,20 @@ export default function Products() {
                 </div>
             </div>
 
-            <div className="cards-container">
+            <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                        opacity: 1,
+                        transition: {
+                            staggerChildren: 0.1, // Delay between each card animation
+                        },
+                    },
+                }}
+                className="cards-container"
+            >
                 {visibleProducts.length > 0 ? (
                     visibleProducts.map((product, index) => (
                         <Card
@@ -264,7 +281,7 @@ export default function Products() {
                 ) : (
                     <div className="no-results">No products match your filters</div>
                 )}
-            </div>
+            </motion.div>
 
             {showScrollButton && (
                 <button

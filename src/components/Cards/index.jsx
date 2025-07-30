@@ -1,8 +1,51 @@
 import { useState, useEffect } from "react";
-import "./css/styles.css";
+import "./css/styles.scss";
 import { Link } from "react-router";
+import { motion, useMotionValue, animate } from "framer-motion";
+import useFancybox from "../Fancybox";
 
-export default function Card({ card , isCart = false, onUpdateItem }) {
+export default function Card({ card, isCart = false, onUpdateItem }) {
+    const x = useMotionValue(0); // Tracks horizontal drag
+    const y = useMotionValue(0); // Tracks vertical drag
+    const [isDragging, setIsDragging] = useState(false);
+    const [fancyboxRef] = useFancybox({
+        // Custom options
+        infinite: false,  // Disable infinite navigation
+        thumbs: {
+            autoStart: true,  // Display thumbnails automatically
+            hideOnClose: true // Hide thumbnails when closing
+        },
+        toolbar: true,  // Show toolbar
+        buttons: [
+            "zoom",
+            "slideShow",
+            "fullScreen",
+            "download",
+            "thumbs",
+            "close"
+        ],
+        animationEffect: "zoom",  // Zoom animation
+        transitionEffect: "fade",  // Fade transition between slides
+        loop: false,  // Disable looping
+        keyboard: {
+            Escape: "close",  // Close on ESC
+            ArrowLeft: "prev",  // Navigate with arrow keys
+            ArrowRight: "next"
+        },
+        on: {
+            init: () => console.log("Fancybox initialized"),
+            reveal: (instance, slide) => console.log("Slide revealed", slide),
+            close: () => console.log("Fancybox closed")
+        }
+    });
+
+    // Reset card to center when released
+    const handleDragEnd = () => {
+        setIsDragging(false);
+        animate(x, 0, { type: "spring", stiffness: 300, damping: 10 });
+        animate(y, 0, { type: "spring", stiffness: 300, damping: 10 });
+    };
+
     const [showPopup, setShowPopup] = useState(false);
     const [volume, setVolume] = useState(1);
     const [cartQuantity, setCartQuantity] = useState(0);
@@ -90,7 +133,25 @@ export default function Card({ card , isCart = false, onUpdateItem }) {
 
     return (
         <>
-            <div className="card">
+            <motion.div
+                drag
+                style={{ x, y }}
+                dragConstraints={{
+                    top: -50,
+                    bottom: 50,
+                    left: -50,
+                    right: 50,
+                }}
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={handleDragEnd}
+                whileTap={{ scale: 0.95 }}
+                dragElastic={0.2}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ rotateY: 10, scale: 1.03, boxShadow: "0 8px 20px rgba(0,0,0,0.12)" }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="card"
+            >
                 <div className="card-image" onClick={() => setShowPopup(true)}>
                     <img src={images[0]} alt="" />
                 </div>
@@ -128,7 +189,7 @@ export default function Card({ card , isCart = false, onUpdateItem }) {
                         )}
                     </div>
                 </div>
-            </div>
+            </motion.div>
             {showPopup && (
                 <div className="card-popup-overlay" onClick={() => setShowPopup(false)}>
                     <div className="card-popup-rectangle" onClick={e => e.stopPropagation()}>
@@ -191,7 +252,7 @@ export default function Card({ card , isCart = false, onUpdateItem }) {
                                 </div>
                             </div>
                             <div className="popup-right">
-                                <div className="carousel popup-carousel">
+                                <div ref={fancyboxRef} className="carousel popup-carousel">
                                     <button
                                         className="carousel-btn prev"
                                         onClick={goToPrevImage}
@@ -201,7 +262,9 @@ export default function Card({ card , isCart = false, onUpdateItem }) {
                                             pointerEvents: images.length <= 1 ? "none" : "auto"
                                         }}
                                     >&lt;</button>
-                                    <img src={images[currentImageIdx]} alt="" />
+                                    <a data-fancybox="gallery" href={images[currentImageIdx]}>
+                                        <img src={images[currentImageIdx]} alt="" />
+                                    </a>
                                     <button
                                         className="carousel-btn next"
                                         onClick={goToNextImage}
