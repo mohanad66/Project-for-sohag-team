@@ -4,10 +4,27 @@ import { Link } from "react-router";
 import { motion, useMotionValue, animate } from "framer-motion";
 import useFancybox from "../Fancybox";
 
+export function useIsTouchDevice() {
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    useEffect(() => {
+        // Check for touch events or touch-capable devices
+        const isTouch =
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            navigator.msMaxTouchPoints > 0;
+
+        setIsTouchDevice(isTouch);
+    }, []);
+
+    return isTouchDevice;
+}
 export default function Card({ card, isCart = false, onUpdateItem }) {
+    const isTouchDevice = useIsTouchDevice();
     const x = useMotionValue(0); // Tracks horizontal drag
     const y = useMotionValue(0); // Tracks vertical drag
-    const [isDragging, setIsDragging] = useState(false);
+    const dragEnabled = !isTouchDevice;
+
     const [fancyboxRef] = useFancybox({
         // Custom options
         infinite: false,  // Disable infinite navigation
@@ -41,7 +58,6 @@ export default function Card({ card, isCart = false, onUpdateItem }) {
 
     // Reset card to center when released
     const handleDragEnd = () => {
-        setIsDragging(false);
         animate(x, 0, { type: "spring", stiffness: 300, damping: 10 });
         animate(y, 0, { type: "spring", stiffness: 300, damping: 10 });
     };
@@ -134,7 +150,7 @@ export default function Card({ card, isCart = false, onUpdateItem }) {
     return (
         <>
             <motion.div
-                drag
+                drag={dragEnabled}
                 style={{ x, y }}
                 dragConstraints={{
                     top: -50,
@@ -142,7 +158,6 @@ export default function Card({ card, isCart = false, onUpdateItem }) {
                     left: -50,
                     right: 50,
                 }}
-                onDragStart={() => setIsDragging(true)}
                 onDragEnd={handleDragEnd}
                 whileTap={{ scale: 0.95 }}
                 dragElastic={0.2}
@@ -157,6 +172,7 @@ export default function Card({ card, isCart = false, onUpdateItem }) {
                 </div>
                 <div className="card-content">
                     <h2>{card.title}</h2>
+                    <h5>{card.price} $</h5>
                     <p>{card.description}</p>
                     <div className="info">
                         <div className="volume-control">
